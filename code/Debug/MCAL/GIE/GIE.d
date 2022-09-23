@@ -1,0 +1,11 @@
+MCAL/GIE/GIE.d MCAL/GIE/GIE.o: ../MCAL/GIE/GIE.c \
+ ../MCAL/GIE/../../LIB/STD_TYPES.h ../MCAL/GIE/../../LIB/BIT_MATH.h \
+ ../MCAL/GIE/GIE_reg.h ../MCAL/GIE/GIE.h
+
+../MCAL/GIE/../../LIB/STD_TYPES.h:
+
+../MCAL/GIE/../../LIB/BIT_MATH.h:
+
+../MCAL/GIE/GIE_reg.h:
+
+../MCAL/GIE/GIE.h:
