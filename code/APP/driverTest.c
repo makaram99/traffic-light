@@ -1,28 +1,17 @@
 // /*********************************************************************************
-//  * @file 	app.c
-//  * @author 	Mahmoud Karam Emara (ma.karam272@gmail.com)
-//  * @brief 	Simple Traffic Light System with Pedeestrian Button
-//  * @details The system is in normal mode, and works as a traffic light system:
-//  *              * Green light for 5 seconds
-//  *              * Yellow light for 5 seconds
-//  *              * Red light for 5 seconds
-//  *              * Yellow light for 5 seconds
-//  *              * Repeat
-//  *          If the pedestrian button is pressed, the system will be in pedestrian
-//  *          mode:
-//  *              * If the button is pressed while the cars are in RED light, the
-//  *                  pedestrian light will be GREEN and cars' light will be RED 
-//  *                  for 5 seconds
-//  *              * If the button is pressed while the cars are in GREEN light, or 
-//  *                  YELLOW is blinking, the pedestrian light will be RED, and both 
-//  *                  cars' and pedestrian's lights will be YELLOW blinking for 5 
-//  *                  seconds, then the pedestrian light will be GREEN and cars'
-//  *                  light will be RED for 5 seconds
-//  *              At the end of both states, the system will be in normal mode
-//  *
+//  * @file    driverTest.c
+//  * @author  Mahmoud Karam Emara (ma.karam272@gmail.com)
+//  * @brief   This file contains the drivers test implementation.
+//  * @details This module is used to test the drivers functionality. 
+//  *          It is not part of the application.
+//  *          To test application units, uncomment the corresponding line in the
+//  *          main function. UNCOMMENT ONLY ONE LINE AT A TIME.
+//  * 
 //  * @version 1.0.0
-//  * @date 	2022-07-02
-//  * @copyright Mahmoud Karam Emara 2022, MIT License
+//  * @date    23 Sep 2022
+//  * 
+//  * @copyright Copyright (c) 2022
+//  * 
 //  ********************************************************************************/
 
 // /*------------------------------------------------------------------------------*/
@@ -41,245 +30,229 @@
 // #include "../HAL/LED/LED.h"
 // #include "../HAL/BUTTON/BUTTON.h"
 
-// #include "app.h"
-// #include "app_cfg.h"
+// #include <util/delay.h>
 
-// /*------------------------------------------------------------------------------*/
-// /*                                                                              */
-// /*                        PRIVATE FUNCTIONS PROTOTYPES                          */
-// /*                                                                              */
-// /*------------------------------------------------------------------------------*/
 
-// static void APP_UpdateState(void);
+// /*-----------------------------------------------------------------------------*/
+// /*                                                                             */
+// /*                            TEST FUNCTION PROTOTYPES                         */
+// /*                                                                             */
+// /*-----------------------------------------------------------------------------*/
+
+// static void test_DIO(void);
+// static void test_EXTI(void);
+// static void test_LED(void);
+// static void test_BUTTON(void);
+// static void test_TIMER(void);
+
 // static void EXTI_Notify(void);
-// static void APP_CarsGreenState(void);
-// static void APP_CarsYellowState(void);
-// static void APP_CarsRedState(void);
-// static void APP_PedestrianInitState(void);
-// static void APP_PedestrianGreenState(void);
-// static void APP_PedestrianFinalState(void);
 
 
-// /*------------------------------------------------------------------------------*/
-// /*                                                                              */
-// /*                                  TYPEDEFS                                    */
-// /*                                                                              */
-// /*------------------------------------------------------------------------------*/
+// /*-----------------------------------------------------------------------------*/
+// /*                                                                             */
+// /*                                     MAIN                                    */
+// /*                                                                             */
+// /*-----------------------------------------------------------------------------*/
 
-// typedef enum {
-//     APP_STATE_INIT,
+// int main(void) {
 
-//     APP_STATE_CARS_GREEN,
-//     APP_STATE_CARS_YELLOW,
-//     APP_STATE_CARS_RED,
-    
-//     APP_STATE_PEDESTRIAN_INIT_STATE,
-//     APP_STATE_PEDESTRIAN_GREEN_STATE,
-//     APP_STATE_PEDESTRIAN_FINAL_STATE,
-
-// } APP_STATE_t;
-
-// /*------------------------------------------------------------------------------*/
-// /*                                                                              */
-// /*                           PRIVATE GLOBALS VARIABLES                          */
-// /*                                                                              */
-// /*------------------------------------------------------------------------------*/
-// static APP_STATE_t appState = APP_STATE_INIT;
-// static BOOL_t isButtonPressed = FALSE;
-
-// /*------------------------------------------------------------------------------*/
-// /*                                                                              */
-// /*                             PUBLIC FUNCTIONS                                 */
-// /*                                                                              */
-// /*------------------------------------------------------------------------------*/
-
-// void APP_Init(void) {
-//     appState = APP_STATE_INIT;
-
+//     #if 0       /* Test DIO */
 //     DIO_Init();
-//     EXTI_Init(EXTI_0, FALLING_EDGE, EXTI_Notify);
+//     test_DIO();
+
+//     #elif 0     /* Test EXTI */
+//     DIO_Init();
+//     test_EXTI();
+
+//     #elif 0     /* Test LED */
+//     DIO_Init();
 //     LED_Init();
+//     test_LED();
+
+//     #elif 0     /* Test BUTTON */
+//     DIO_Init();
 //     BUTTON_Init();
+//     test_BUTTON();
+
+//     #elif 1     /* Test TIMER */
+//     DIO_Init();
+//     LED_Init();
+//     test_TIMER();
+//     #endif
+
+//     while(1) {
+
+//     }
+
+//     return 0;
+// }
+
+
+// /*-----------------------------------------------------------------------------*/
+// /*                                                                             */
+// /*                            TEST FUNCTION DEFINITIONS                        */
+// /*                                                                             */
+// /*-----------------------------------------------------------------------------*/
+
+// static void test_DIO(void) {
+//     #if 1       /* Test writing functions: there are 6 blinks i theis test  */
+
+//     /* Testing DIO_SetPinValue function */
+//     DIO_SetPinValue(DIO_PINS_CAR_LED_R, HIGH);
+//     DIO_SetPinValue(DIO_PINS_CAR_LED_Y, HIGH);
+//     DIO_SetPinValue(DIO_PINS_CAR_LED_G, HIGH);
+//     _delay_ms(1000);
+//     DIO_SetPinValue(DIO_PINS_CAR_LED_R, LOW);
+//     DIO_SetPinValue(DIO_PINS_CAR_LED_Y, LOW);
+//     DIO_SetPinValue(DIO_PINS_CAR_LED_G, LOW);
+//     _delay_ms(1000);
+
+//     /* Testing Set/Clr functions */
+//     DIO_SetPin(DIO_PINS_CAR_LED_R);
+//     DIO_SetPin(DIO_PINS_CAR_LED_Y);
+//     DIO_SetPin(DIO_PINS_CAR_LED_G);
+//     _delay_ms(1000);
+//     DIO_ClrPin(DIO_PINS_CAR_LED_R);
+//     DIO_ClrPin(DIO_PINS_CAR_LED_Y);
+//     DIO_ClrPin(DIO_PINS_CAR_LED_G);
+//     _delay_ms(1000);
+
+//     /* Testing DIO_SetPortValue function */
+//     DIO_SetPortValue(DIO_PINS_CAR_LED_R, 0x07);
+//     _delay_ms(1000);
+//     DIO_SetPortValue(DIO_PINS_CAR_LED_R, 0xf8);
+//     _delay_ms(1000);
+//     DIO_SetPortValue(DIO_PINS_CAR_LED_R, 0x00);
+//     _delay_ms(1000);
+
+//     /* Testing DIO_TooglePin function */
+//     DIO_TogglePin(DIO_PINS_CAR_LED_R);
+//     DIO_TogglePin(DIO_PINS_CAR_LED_Y);
+//     DIO_TogglePin(DIO_PINS_CAR_LED_G);
+//     _delay_ms(1000);
+//     DIO_TogglePin(DIO_PINS_CAR_LED_R);
+//     DIO_TogglePin(DIO_PINS_CAR_LED_Y);
+//     DIO_TogglePin(DIO_PINS_CAR_LED_G);
+//     _delay_ms(1000);
+
+//     /* Testing DIO_TogglePort function */
+//     DIO_TogglePort(DIO_PINS_CAR_LED_R);
+//     _delay_ms(1000);
+//     DIO_TogglePort(DIO_PINS_CAR_LED_R);
+//     _delay_ms(1000);
+
+//     #else   /* Test read function           */
+//     while(1) {
+//         /* Testing DIO_ReadPin function */
+//         uint8_t pinValue = 0;
+//         DIO_ReadPin(DIO_PINS_PEDESTRIAN_BUTTON, &pinValue);
+//         DIO_SetPinValue(DIO_PINS_CAR_LED_R, !pinValue);
+//     } 
+
+//     #endif
+// }
+
+// static void test_EXTI(void) {
+    
+//     #if 0       /* Test EXTI Falling Edge */
+//     EXTI_Init(EXTI_0, FALLING_EDGE, EXTI_Notify);
+
+//     #elif 0     /* Test EXTI Rising Edge */
+//     EXTI_Init(EXTI_0, RISING_EDGE, EXTI_Notify);
+
+//     #elif 0     /* Test EXTI On Change */
+//     EXTI_Init(EXTI_0, LOGIC_CHANGE, EXTI_Notify);
+
+//     #elif 1     /* Test EXTI Low Level */
+//     EXTI_Init(EXTI_0, LOW_LEVEL_DETECT, EXTI_Notify);
+//     #endif
 
 //     EXTI_EnableExternalInterrupt(EXTI_0);
 // }
 
-// void APP_Start(void) {
-//     APP_UpdateState();
+// static void test_LED(void) {
+    
+//     #if 0       /* Test writing functions: there are 6 blinks i theis test  */
 
+//     /* Testing LED_SetClr function */
+//     LED_SetClr(LED_CAR_R, HIGH);
+//     LED_SetClr(LED_CAR_Y, HIGH);
+//     LED_SetClr(LED_CAR_G, HIGH);
+//     _delay_ms(1000);
+//     LED_SetClr(LED_CAR_R, LOW);
+//     LED_SetClr(LED_CAR_Y, LOW);
+//     LED_SetClr(LED_CAR_G, LOW);
+//     _delay_ms(1000);
+
+//     /* Testing Set/Clr functions */
+//     LED_Set(LED_CAR_R);
+//     LED_Set(LED_CAR_Y);
+//     LED_Set(LED_CAR_G);
+//     _delay_ms(1000);
+//     LED_Clr(LED_CAR_R);
+//     LED_Clr(LED_CAR_Y);
+//     LED_Clr(LED_CAR_G);
+//     _delay_ms(1000);
+
+//     /* Testing LED_Toogle function */
+//     LED_Toggle(LED_CAR_R);
+//     LED_Toggle(LED_CAR_Y);
+//     LED_Toggle(LED_CAR_G);
+//     _delay_ms(1000);
+//     LED_Toggle(LED_CAR_R);
+//     LED_Toggle(LED_CAR_Y);
+//     LED_Toggle(LED_CAR_G);
+//     _delay_ms(1000);
+
+//     #else   /* Test read function           */
 //     while(1) {
-// 		APP_UpdateState();
-// 	}
+//         /* Testing LED_ReadPin function */
+//         uint8_t pinValue = 0;
+//         DIO_ReadPin(DIO_PINS_PEDESTRIAN_BUTTON, &pinValue);
+//         LED_SetClr(LED_CAR_R, !pinValue);
 
-// 	return;
+//         LED_Read(LED_CAR_R, &pinValue);
+//         LED_SetClr(LED_CAR_G, pinValue);
+//     } 
+
+//     #endif
+
 // }
 
+// static void test_BUTTON(void) {
+//     while(1) {
+//         /* Testing BUTTON_Read function */
+//         uint8_t pinValue = 0;
+//         BUTTON_Read(BUTTON_PEDESTRIAN, &pinValue);
+//         LED_SetClr(LED_CAR_R, pinValue);
+//     } 
 
-
-// /*------------------------------------------------------------------------------*/
-// /*                                                                              */
-// /*                             PRIVATE FUNCTIONS                                */
-// /*                                                                              */
-// /*------------------------------------------------------------------------------*/
-
-// static void APP_UpdateState(void) {
-//     switch(appState) {
-//         case APP_STATE_INIT:
-//             appState = APP_STATE_CARS_GREEN;
-//             break;
-//         case APP_STATE_CARS_GREEN:
-//             appState = APP_STATE_CARS_YELLOW;
-//             APP_CarsGreenState();
-//             break;
-//         case APP_STATE_CARS_YELLOW:
-//             appState = APP_STATE_CARS_RED;
-//             APP_CarsYellowState();
-//             break;
-//         case APP_STATE_CARS_RED:
-//             appState = APP_STATE_CARS_GREEN;
-//             APP_CarsRedState();
-//             break;
-//         case APP_STATE_PEDESTRIAN_INIT_STATE:
-//             appState = APP_STATE_PEDESTRIAN_GREEN_STATE;
-//             APP_PedestrianInitState();
-//             break;
-//         case APP_STATE_PEDESTRIAN_GREEN_STATE:
-//             appState = APP_STATE_PEDESTRIAN_FINAL_STATE;
-//             APP_PedestrianGreenState();
-//             break;
-//         case APP_STATE_PEDESTRIAN_FINAL_STATE:
-//             appState = APP_STATE_CARS_GREEN;
-//             APP_PedestrianFinalState();
-//             break;
-//         default:
-//             break;
-//     }
 // }
+
+// static void test_TIMER(void) {
+
+//     /* Test 1 Second delay */
+//     LED_Set(LED_CAR_R);
+//     TIMER_DelayMs(1000);
+//     LED_Clr(LED_CAR_R);
+//     TIMER_DelayMs(1000);
+
+//     /* Test 2 Second delay */
+//     LED_Set(LED_CAR_R);
+//     TIMER_DelayMs(2000);
+//     LED_Clr(LED_CAR_R);
+//     TIMER_DelayMs(2000);
+
+//     /* Test 5 Second delay */
+//     LED_Set(LED_CAR_R);
+//     TIMER_DelayMs(5000);
+//     LED_Clr(LED_CAR_R);
+//     TIMER_DelayMs(5000);
+
+//     LED_Set(LED_CAR_R);
+// }
+
 
 // static void EXTI_Notify(void) {
-//     isButtonPressed = TRUE;
+//     DIO_TogglePort(DIO_PINS_CAR_LED_R);
 // }
-
-// static void APP_CarsGreenState(void) {
-//     LED_Set(LED_CAR_G);
-//     LED_Clr(LED_CAR_Y);
-//     LED_Clr(LED_CAR_R);
-
-//     LED_Set(LED_PEDESTRIAN_R);
-//     LED_Clr(LED_PEDESTRIAN_G);
-//     LED_Clr(LED_PEDESTRIAN_Y);
-
-//     for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
-//         if(isButtonPressed) {
-//             isButtonPressed = FALSE;
-//             appState = APP_STATE_PEDESTRIAN_INIT_STATE;
-//             return;
-//         }
-
-//         TIMER_DelayMs(1000);
-//     }
-// }
-
-// static void APP_CarsYellowState(void) {
-//     LED_Set(LED_CAR_Y);
-//     LED_Set(LED_CAR_G);
-//     LED_Clr(LED_CAR_R);
-
-//     LED_Set(LED_PEDESTRIAN_R);
-//     LED_Clr(LED_PEDESTRIAN_G);
-//     LED_Clr(LED_PEDESTRIAN_Y);
-
-//     for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
-//         if(isButtonPressed) {
-//             isButtonPressed = FALSE;
-//             appState = APP_STATE_PEDESTRIAN_INIT_STATE;
-//             return;
-//         }
-
-//         TIMER_DelayMs(1000);
-
-//         LED_Toggle(LED_CAR_Y);
-//     }
-// }
-
-// static void APP_CarsRedState(void) {
-//     LED_Set(LED_CAR_R);
-//     LED_Clr(LED_CAR_G);
-//     LED_Clr(LED_CAR_Y);
-
-//     LED_Set(LED_PEDESTRIAN_R);
-//     LED_Clr(LED_PEDESTRIAN_G);
-//     LED_Clr(LED_PEDESTRIAN_Y);
-
-//     for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
-//         if(isButtonPressed) {
-//             isButtonPressed = FALSE;
-//             appState = APP_STATE_PEDESTRIAN_GREEN_STATE;
-//             return;
-//         }
-
-//         TIMER_DelayMs(1000);
-//     }
-// }
-
-// static void APP_PedestrianInitState(void) {
-//     LED_Clr(LED_PEDESTRIAN_G);
-//     LED_Set(LED_PEDESTRIAN_R);
-//     LED_Set(LED_PEDESTRIAN_Y);
-
-//     LED_Clr(LED_CAR_R);
-//     LED_Set(LED_CAR_G);
-//     LED_Set(LED_CAR_Y);
-
-//     for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
-//         if(isButtonPressed) {
-//             isButtonPressed = FALSE;
-//             /* Do nothing: remain in the same state */
-//         }
-//         TIMER_DelayMs(1000);
-
-//         LED_Toggle(LED_PEDESTRIAN_Y);
-//         LED_Toggle(LED_CAR_Y);
-//     }
-// }
-
-// static void APP_PedestrianGreenState(void) {
-//     LED_Set(LED_PEDESTRIAN_G);
-//     LED_Clr(LED_PEDESTRIAN_R);
-//     LED_Clr(LED_PEDESTRIAN_Y);
-
-//     LED_Set(LED_CAR_R);
-//     LED_Clr(LED_CAR_G);
-//     LED_Clr(LED_CAR_Y);
-
-//     for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
-//         if(isButtonPressed) {
-//             isButtonPressed = FALSE;
-//             /* Do nothing: remain in the same state */
-//         }
-//         TIMER_DelayMs(1000);
-//     }
-// }
-
-// static void APP_PedestrianFinalState(void) {
-//     LED_Set(LED_PEDESTRIAN_G);
-//     LED_Clr(LED_PEDESTRIAN_R);
-//     LED_Set(LED_PEDESTRIAN_Y);
-
-//     LED_Clr(LED_CAR_R);
-//     LED_Clr(LED_CAR_G);
-//     LED_Set(LED_CAR_Y);
-
-//     for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
-//         if(isButtonPressed) {
-//             isButtonPressed = FALSE;
-//             /* Do nothing: remain in the same state */
-//         }
-//         TIMER_DelayMs(1000);
-
-//         LED_Toggle(LED_PEDESTRIAN_Y);
-//         LED_Toggle(LED_CAR_Y);
-//     }
-// }
-
-

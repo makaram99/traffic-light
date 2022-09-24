@@ -103,7 +103,7 @@ void EXTI_EnableExternalInterrupt(const EXTI_t extiNumber) {
         if(extiNumber == EXTI_0) {
             BIT_SET(GICR, INT0);      /*!< BIT = INT0, INT1, ... */
         } else if(extiNumber == EXTI_1) {
-            BIT_SET(GICR, INT2);      /*!< BIT = INT0, INT1, ... */
+            BIT_SET(GICR, INT1);      /*!< BIT = INT0, INT1, ... */
         } else if(extiNumber == EXTI_2) {
             BIT_SET(GICR, INT2);      /*!< BIT = INT0, INT1, ... */
         }
@@ -228,7 +228,12 @@ static void ISR_Generic(const EXTI_t extiNumber) {
 
     #if(NESTING == NESTING_DISABLED)
     GIE_Disable();
+    #elif(NESTING == NESTING_ENABLED)
+    GIE_Enable();
+    #else
+    #error "NESTING is not defined"
     #endif
+    
 
     EXTI_ClearInterruptFlag(extiNumber);
 
@@ -238,9 +243,7 @@ static void ISR_Generic(const EXTI_t extiNumber) {
         /* DEBUG    */
     }
 
-    #if(NESTING == NESTING_DISABLED)
     GIE_Enable();
-    #endif
 }
 
 /*!< ISR of INT0                      */

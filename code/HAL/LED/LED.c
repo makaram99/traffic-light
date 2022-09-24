@@ -40,6 +40,7 @@ ERROR_t LED_SetClr(const LED_t led, const STATE_t state) {
     s8_t i = 0;
     
     error |= LED_ReadIndex(led, &i);
+    
     if(i >= 0) {
         error |= DIO_SetPinValue(ledConfigs[i].pin, state);
     } else {

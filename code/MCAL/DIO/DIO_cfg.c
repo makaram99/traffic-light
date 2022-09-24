@@ -41,7 +41,6 @@ DIO_PIN_CONFIGS_t  pinConfigs[] = {
 
     /* BUTTON  */
     {DIO_PINS_PEDESTRIAN_BUTTON, DIO_PIN_2, DIO_PORT_D, DIO_INPUT, DIO_PULLUP_ON},
-
 };
 
 

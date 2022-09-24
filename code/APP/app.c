@@ -21,7 +21,7 @@
  *              At the end of both states, the system will be in normal mode
  *
  * @version 1.0.0
- * @date 	2022-07-02
+ * @date 	23 Sep 2022
  * @copyright Mahmoud Karam Emara 2022, MIT License
  ********************************************************************************/
 
@@ -66,6 +66,9 @@ static void APP_PedestrianFinalState(void);
 /*                                                                              */
 /*------------------------------------------------------------------------------*/
 
+/*********************************************************************************
+ * @brief The states of the system
+ ********************************************************************************/
 typedef enum {
     APP_STATE_INIT,
 
@@ -84,7 +87,11 @@ typedef enum {
 /*                           PRIVATE GLOBALS VARIABLES                          */
 /*                                                                              */
 /*------------------------------------------------------------------------------*/
+
+/*!< The current state of the system                */
 static APP_STATE_t appState = APP_STATE_INIT;
+
+/*!< The current state of the pedestrian button     */
 static BOOL_t isButtonPressed = FALSE;
 
 /*------------------------------------------------------------------------------*/
@@ -122,6 +129,14 @@ void APP_Start(void) {
 /*                                                                              */
 /*------------------------------------------------------------------------------*/
 
+/*********************************************************************************
+ * @brief   Update the application state
+ * @details Update the application state by checking the current state and
+ *          calling the corresponding function, then change the state to the next
+ *          state
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_UpdateState(void) {
     switch(appState) {
         case APP_STATE_INIT:
@@ -156,10 +171,27 @@ static void APP_UpdateState(void) {
     }
 }
 
+/*********************************************************************************
+ * @brief   Notify the application that the button is pressed
+ * @details This is a callback used by the EXTI deiver to notify the application 
+ *          that the button is pressed by setting the isButtonPressed flag to TRUE
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void EXTI_Notify(void) {
     isButtonPressed = TRUE;
 }
 
+/*********************************************************************************
+ * @brief   Cars' green state
+ * @details This function is called when the system is in cars' green state, it
+ *          will turn on the cars' green light and pedestrian's red ligh, and 
+ *          turn off the other lights
+ *          Then it will wait for 5 seconds, and if the button is pressed, it will
+ *          change the state to pedestrian's init state
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_CarsGreenState(void) {
     LED_Set(LED_CAR_G);
     LED_Clr(LED_CAR_Y);
@@ -180,6 +212,16 @@ static void APP_CarsGreenState(void) {
     }
 }
 
+/*********************************************************************************
+ * @brief   Cars' yellow state
+ * @details This function is called when the system is in cars' yellow state, it
+ *          will blink the cars' yellow light and turn on the pedestrian's red ligh, 
+ *          and turn off the other lights
+ *          Then it will wait for 5 seconds, and if the button is pressed, it will
+ *          change the state to pedestrian's initial state
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_CarsYellowState(void) {
     LED_Set(LED_CAR_Y);
     LED_Set(LED_CAR_G);
@@ -202,6 +244,17 @@ static void APP_CarsYellowState(void) {
     }
 }
 
+/*********************************************************************************
+ * @brief   Cars' red state
+ * @details This function is called when the system is in cars' red state, it
+ *          will turn on the cars' red light and pedestrian's red ligh, and 
+ *          turn off the other lights
+ *          Then it will wait for 5 seconds, and if the button is pressed, it will
+ *          change the state to pedestrian's green state   
+ * 
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_CarsRedState(void) {
     LED_Set(LED_CAR_R);
     LED_Clr(LED_CAR_G);
@@ -222,6 +275,16 @@ static void APP_CarsRedState(void) {
     }
 }
 
+/*********************************************************************************
+ * @brief   Pedestrian's initial state
+ * @details This function is called when the system is in pedestrian's initial state, 
+ *          it will turn on the cars' green light and blink both car's yeallo and 
+ *          pedestrian's yellow lights, and turn off the other lights
+ *          Then it will wait for 5 seconds, and change the state to pedestrian's 
+ *          green state. If the button is pressed, it has no effect
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_PedestrianInitState(void) {
     LED_Clr(LED_PEDESTRIAN_G);
     LED_Clr(LED_PEDESTRIAN_R);
@@ -243,6 +306,16 @@ static void APP_PedestrianInitState(void) {
     }
 }
 
+/*********************************************************************************
+ * @brief   Pedestrian's green state
+ * @details This function is called when the system is in pedestrian's green state, 
+ *          it will turn on the cars' red light and pedestrian's green light, and 
+ *          turn off the other lights
+ *          Then it will wait for 5 seconds, and change the state to pedestrian's 
+ *          final state. If the button is pressed, it has no effect
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_PedestrianGreenState(void) {
     LED_Set(LED_PEDESTRIAN_G);
     LED_Clr(LED_PEDESTRIAN_R);
@@ -257,10 +330,22 @@ static void APP_PedestrianGreenState(void) {
             isButtonPressed = FALSE;
             /* Do nothing: remain in the same state */
         }
+
         TIMER_DelayMs(1000);
     }
 }
 
+/*********************************************************************************
+ * @brief   Pedestrian's final state
+ * @details This function is called when the system is in pedestrian's final state, 
+ *          it will turn on the cars' red light and blink both car's yeallo and 
+ *          pedestrian's yellow lights, and turn off the other lights
+ *          Then it will wait for 5 seconds, and change the state to cars' green 
+ *          state. 
+ *          If the button is pressed, it has no effect
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_PedestrianFinalState(void) {
     LED_Set(LED_PEDESTRIAN_G);
     LED_Clr(LED_PEDESTRIAN_R);
@@ -275,6 +360,7 @@ static void APP_PedestrianFinalState(void) {
             isButtonPressed = FALSE;
             /* Do nothing: remain in the same state */
         }
+        
         TIMER_DelayMs(1000);
 
         LED_Toggle(LED_PEDESTRIAN_Y);

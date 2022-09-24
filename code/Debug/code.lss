@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000400  00000000  00000000  000013f8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00003bc6  00000000  00000000  000017f8  2**0
+  6 .debug_info   00003bcb  00000000  00000000  000017f8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00001132  00000000  00000000  000053be  2**0
+  7 .debug_abbrev 00001132  00000000  00000000  000053c3  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00002242  00000000  00000000  000064f0  2**0
+  8 .debug_line   00002230  00000000  00000000  000064f5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000d04  00000000  00000000  00008734  2**2
+  9 .debug_frame  00000d04  00000000  00000000  00008728  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00001744  00000000  00000000  00009438  2**0
+ 10 .debug_str    00001744  00000000  00000000  0000942c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000032b2  00000000  00000000  0000ab7c  2**0
+ 11 .debug_loc    00003278  00000000  00000000  0000ab70  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000350  00000000  00000000  0000de2e  2**0
+ 12 .debug_ranges 00000350  00000000  00000000  0000dde8  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -113,10 +113,10 @@ Disassembly of section .text:
       b0:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000000b4 <EXTI_Notify>:
-            break;
-    }
-}
-
+ *          that the button is pressed by setting the isButtonPressed flag to TRUE
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void EXTI_Notify(void) {
     isButtonPressed = TRUE;
       b4:	81 e0       	ldi	r24, 0x01	; 1
@@ -124,11 +124,11 @@ static void EXTI_Notify(void) {
       ba:	08 95       	ret
 
 000000bc <APP_CarsGreenState>:
-    //     isButtonPressed = FALSE;
-    // } else {
-    //     isButtonPressed = TRUE;
-    // }
-
+ *          Then it will wait for 5 seconds, and if the button is pressed, it will
+ *          change the state to pedestrian's init state
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_CarsGreenState(void) {
       bc:	cf 93       	push	r28
     LED_Set(LED_CAR_G);
@@ -202,11 +202,11 @@ static void APP_CarsGreenState(void) {
      122:	08 95       	ret
 
 00000124 <APP_CarsRedState>:
-
-        LED_Toggle(LED_CAR_Y);
-    }
-}
-
+ *          change the state to pedestrian's green state   
+ * 
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_CarsRedState(void) {
      124:	cf 93       	push	r28
     LED_Set(LED_CAR_R);
@@ -280,11 +280,11 @@ static void APP_CarsRedState(void) {
      18a:	08 95       	ret
 
 0000018c <APP_PedestrianGreenState>:
-        LED_Toggle(LED_PEDESTRIAN_Y);
-        LED_Toggle(LED_CAR_Y);
-    }
-}
-
+ *          Then it will wait for 5 seconds, and change the state to pedestrian's 
+ *          final state. If the button is pressed, it has no effect
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_PedestrianGreenState(void) {
      18c:	cf 93       	push	r28
     LED_Set(LED_PEDESTRIAN_G);
@@ -323,6 +323,7 @@ static void APP_PedestrianGreenState(void) {
      1c8:	10 92 aa 00 	sts	0x00AA, r1	; 0x8000aa <__data_end>
             /* Do nothing: remain in the same state */
         }
+
         TIMER_DelayMs(1000);
      1cc:	28 ee       	ldi	r18, 0xE8	; 232
      1ce:	33 e0       	ldi	r19, 0x03	; 3
@@ -342,9 +343,9 @@ static void APP_PedestrianGreenState(void) {
      1e0:	cf 5f       	subi	r28, 0xFF	; 255
      1e2:	c5 30       	cpi	r28, 0x05	; 5
      1e4:	70 f3       	brcs	.-36     	; 0x1c2 <APP_PedestrianGreenState+0x36>
-            isButtonPressed = FALSE;
             /* Do nothing: remain in the same state */
         }
+
         TIMER_DelayMs(1000);
     }
 }
@@ -352,11 +353,11 @@ static void APP_PedestrianGreenState(void) {
      1e8:	08 95       	ret
 
 000001ea <APP_CarsYellowState>:
-
-        TIMER_DelayMs(1000);
-    }
-}
-
+ *          Then it will wait for 5 seconds, and if the button is pressed, it will
+ *          change the state to pedestrian's initial state
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_CarsYellowState(void) {
      1ea:	cf 93       	push	r28
     LED_Set(LED_CAR_Y);
@@ -434,11 +435,11 @@ static void APP_CarsYellowState(void) {
      256:	08 95       	ret
 
 00000258 <APP_PedestrianInitState>:
-
-        TIMER_DelayMs(1000);
-    }
-}
-
+ *          Then it will wait for 5 seconds, and change the state to pedestrian's 
+ *          green state. If the button is pressed, it has no effect
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_PedestrianInitState(void) {
      258:	cf 93       	push	r28
     LED_Clr(LED_PEDESTRIAN_G);
@@ -513,11 +514,11 @@ static void APP_PedestrianInitState(void) {
      2c0:	08 95       	ret
 
 000002c2 <APP_PedestrianFinalState>:
-        }
-        TIMER_DelayMs(1000);
-    }
-}
-
+ *          state. 
+ *          If the button is pressed, it has no effect
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_PedestrianFinalState(void) {
      2c2:	cf 93       	push	r28
     LED_Set(LED_PEDESTRIAN_G);
@@ -556,6 +557,7 @@ static void APP_PedestrianFinalState(void) {
      2fe:	10 92 aa 00 	sts	0x00AA, r1	; 0x8000aa <__data_end>
             /* Do nothing: remain in the same state */
         }
+        
         TIMER_DelayMs(1000);
      302:	28 ee       	ldi	r18, 0xE8	; 232
      304:	33 e0       	ldi	r19, 0x03	; 3
@@ -592,10 +594,10 @@ static void APP_PedestrianFinalState(void) {
      32a:	08 95       	ret
 
 0000032c <APP_UpdateState>:
-/*                             PRIVATE FUNCTIONS                                */
-/*                                                                              */
-/*------------------------------------------------------------------------------*/
-
+ *          state
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 static void APP_UpdateState(void) {
     switch(appState) {
      32c:	e0 91 ab 00 	lds	r30, 0x00AB	; 0x8000ab <appState>
@@ -663,10 +665,10 @@ static void APP_UpdateState(void) {
      392:	08 95       	ret
 
 00000394 <APP_Init>:
-/*                             PUBLIC FUNCTIONS                                 */
-/*                                                                              */
-/*------------------------------------------------------------------------------*/
-
+ *          setting the initial state
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 void APP_Init(void) {
     appState = APP_STATE_INIT;
      394:	10 92 ab 00 	sts	0x00AB, r1	; 0x8000ab <appState>
@@ -690,8 +692,10 @@ void APP_Init(void) {
      3b6:	08 95       	ret
 
 000003b8 <APP_Start>:
-}
-
+ * @details Start the application by updating the state
+ * @param   void
+ * @return  void
+ ********************************************************************************/
 void APP_Start(void) {
     APP_UpdateState();
      3b8:	0e 94 96 01 	call	0x32c	; 0x32c <APP_UpdateState>
@@ -823,6 +827,7 @@ ERROR_t LED_SetClr(const LED_t led, const STATE_t state) {
      420:	7f 4f       	sbci	r23, 0xFF	; 255
      422:	0e 94 e3 01 	call	0x3c6	; 0x3c6 <LED_ReadIndex>
      426:	18 2f       	mov	r17, r24
+    
     if(i >= 0) {
      428:	e9 81       	ldd	r30, Y+1	; 0x01
      42a:	ee 23       	and	r30, r30
@@ -1747,7 +1752,7 @@ ERROR_t DIO_Init(void) {
      a5c:	c1 30       	cpi	r28, 0x01	; 1
      a5e:	21 f4       	brne	.+8      	; 0xa68 <EXTI_EnableExternalInterrupt+0x2a>
      a60:	8b b7       	in	r24, 0x3b	; 59
-     a62:	80 62       	ori	r24, 0x20	; 32
+     a62:	80 68       	ori	r24, 0x80	; 128
      a64:	8b bf       	out	0x3b, r24	; 59
      a66:	05 c0       	rjmp	.+10     	; 0xa72 <EXTI_EnableExternalInterrupt+0x34>
      a68:	c2 30       	cpi	r28, 0x02	; 2
@@ -1760,7 +1765,7 @@ ERROR_t DIO_Init(void) {
      a78:	08 95       	ret
 
 00000a7a <__vector_1>:
-    #endif
+    GIE_Enable();
 }
 
 /*!< ISR of INT0                      */

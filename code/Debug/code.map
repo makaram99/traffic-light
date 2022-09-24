@@ -54,7 +54,7 @@ Discarded input sections
  .text.BUTTON_ReadIndex
                 0x00000000       0x40 HAL/BUTTON/BUTTON.o
  .text.BUTTON_Debounce
-                0x00000000       0xa4 HAL/BUTTON/BUTTON.o
+                0x00000000       0x82 HAL/BUTTON/BUTTON.o
  .text.BUTTON_Read
                 0x00000000       0xa2 HAL/BUTTON/BUTTON.o
  .text.BUTTON_SetClrPullup
@@ -893,19 +893,19 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x3bc6
+.debug_info     0x00000000     0x3bcb
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_info    0x000004e6      0x824 APP/app.o
- .debug_info    0x00000d0a      0x598 HAL/BUTTON/BUTTON.o
- .debug_info    0x000012a2      0x431 HAL/LED/LED.o
- .debug_info    0x000016d3      0x16a HAL/LED/LED_cfg.o
- .debug_info    0x0000183d       0x7d main.o
- .debug_info    0x000018ba      0x94f MCAL/DIO/DIO.o
- .debug_info    0x00002209      0x21e MCAL/DIO/DIO_cfg.o
- .debug_info    0x00002427      0x482 MCAL/EXTI/EXTI.o
- .debug_info    0x000028a9       0xae MCAL/GIE/GIE.o
- .debug_info    0x00002957     0x126f MCAL/TIMER/TIMER.o
+ .debug_info    0x000004e6      0x828 APP/app.o
+ .debug_info    0x00000d0e      0x598 HAL/BUTTON/BUTTON.o
+ .debug_info    0x000012a6      0x431 HAL/LED/LED.o
+ .debug_info    0x000016d7      0x16a HAL/LED/LED_cfg.o
+ .debug_info    0x00001841       0x7d main.o
+ .debug_info    0x000018be      0x94f MCAL/DIO/DIO.o
+ .debug_info    0x0000220d      0x21e MCAL/DIO/DIO_cfg.o
+ .debug_info    0x0000242b      0x483 MCAL/EXTI/EXTI.o
+ .debug_info    0x000028ae       0xae MCAL/GIE/GIE.o
+ .debug_info    0x0000295c     0x126f MCAL/TIMER/TIMER.o
 
 .debug_abbrev   0x00000000     0x1132
  *(.debug_abbrev)
@@ -921,19 +921,19 @@ END GROUP
  .debug_abbrev  0x00000e82       0x46 MCAL/GIE/GIE.o
  .debug_abbrev  0x00000ec8      0x26a MCAL/TIMER/TIMER.o
 
-.debug_line     0x00000000     0x2242
+.debug_line     0x00000000     0x2230
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x116 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32/avr5/crtatmega32.o
  .debug_line    0x00000116      0x4b7 APP/app.o
- .debug_line    0x000005cd      0x30f HAL/BUTTON/BUTTON.o
- .debug_line    0x000008dc      0x1b9 HAL/LED/LED.o
- .debug_line    0x00000a95       0x8f HAL/LED/LED_cfg.o
- .debug_line    0x00000b24       0x5b main.o
- .debug_line    0x00000b7f      0x4ac MCAL/DIO/DIO.o
- .debug_line    0x0000102b       0x6e MCAL/DIO/DIO_cfg.o
- .debug_line    0x00001099      0x340 MCAL/EXTI/EXTI.o
- .debug_line    0x000013d9       0x80 MCAL/GIE/GIE.o
- .debug_line    0x00001459      0xde9 MCAL/TIMER/TIMER.o
+ .debug_line    0x000005cd      0x2fd HAL/BUTTON/BUTTON.o
+ .debug_line    0x000008ca      0x1b9 HAL/LED/LED.o
+ .debug_line    0x00000a83       0x8f HAL/LED/LED_cfg.o
+ .debug_line    0x00000b12       0x5b main.o
+ .debug_line    0x00000b6d      0x4ac MCAL/DIO/DIO.o
+ .debug_line    0x00001019       0x6e MCAL/DIO/DIO_cfg.o
+ .debug_line    0x00001087      0x340 MCAL/EXTI/EXTI.o
+ .debug_line    0x000013c7       0x80 MCAL/GIE/GIE.o
+ .debug_line    0x00001447      0xde9 MCAL/TIMER/TIMER.o
 
 .debug_frame    0x00000000      0xd04
  *(.debug_frame)
@@ -970,14 +970,14 @@ END GROUP
  .debug_str     0x00000d65      0x9df MCAL/TIMER/TIMER.o
                                 0xc5b (size before relaxing)
 
-.debug_loc      0x00000000     0x32b2
+.debug_loc      0x00000000     0x3278
  *(.debug_loc)
  .debug_loc     0x00000000      0x186 APP/app.o
- .debug_loc     0x00000186      0x543 HAL/BUTTON/BUTTON.o
- .debug_loc     0x000006c9      0x327 HAL/LED/LED.o
- .debug_loc     0x000009f0      0xa8f MCAL/DIO/DIO.o
- .debug_loc     0x0000147f      0x595 MCAL/EXTI/EXTI.o
- .debug_loc     0x00001a14     0x189e MCAL/TIMER/TIMER.o
+ .debug_loc     0x00000186      0x509 HAL/BUTTON/BUTTON.o
+ .debug_loc     0x0000068f      0x327 HAL/LED/LED.o
+ .debug_loc     0x000009b6      0xa8f MCAL/DIO/DIO.o
+ .debug_loc     0x00001445      0x595 MCAL/EXTI/EXTI.o
+ .debug_loc     0x000019da     0x189e MCAL/TIMER/TIMER.o
 
 .debug_macinfo
  *(.debug_macinfo)

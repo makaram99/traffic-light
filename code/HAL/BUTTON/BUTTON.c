@@ -104,7 +104,6 @@ ERROR_t BUTTON_SetClrDebounce(const BUTTON_t button, const DEBOUNCE_t debounce) 
 
 
 
-
 /*------------------------------------------------------------------------------*/
 /*                                                                              */
 /*                              PRIVATE FUNCTIONS                               */
@@ -169,10 +168,6 @@ static ERROR_t BUTTON_Debounce(const u8_t index, STATE_t * const pState) {
     if( (STATE_t)(buttonsConfigs[index].ActiveHighOrLow) == *pState) {
         _delay_ms(DEBOUNCE_TIME_MS);
         error |= DIO_ReadPin(buttonsConfigs[index].pin, pState);
-    }
-
-    if(ACTIVE_LOW == buttonsConfigs[index].ActiveHighOrLow) {
-        *pState = !(*pState);
     }
 
     return error;
