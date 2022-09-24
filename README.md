@@ -24,16 +24,20 @@ This is a simple traffic light system done as a project for the [egFWD](https://
 
 **To run drivers testing**:
 
-1. In [code\APP\driverTest.c](code/APP/driverTest.c), uncomment only one line of the required test in main function
-2. Open the [`code.atsln`](code/code.atsln) using Microchip Studio
-3. Build the project
-4. Then run the simulation on either Microchip Studio, or Proteus simulation
+1. Comment all code in [code\APP\app.c](code/APP/app.c) and [code\main.c](code/main.c)
+2. Uncomment all the code in [code\APP\driverTest.c](code/APP/driverTest.c)
+3. In [code\APP\driverTest.c](code/APP/driverTest.c), uncomment only one line of the required test in main function
+4. Open the [`code.atsln`](code/code.atsln) using Microchip Studio
+5. Build the project
+6. Then run the simulation on either Microchip Studio, or Proteus simulation
    1. To simulate on Proteus, open the [`simulation/simulation.pdsprj`](simulation/simulation.pdsprj) file using Proteus, then Run the simulation
-5. Repeat from step 1 to test other drivers
+7. Repeat from step 1 to test other drivers
 
 **To run application**:
 
-1. Open the [`code.atsln`](code/code.atsln) using Microchip Studio
+1. Comment all code in [code\APP\driverTest.c](code/APP/driverTest.c) and [code\main.c](code/main.c)
+2. Uncomment all the code in [code\APP\app.c](code/APP/app.c)
+3. Open the [`code.atsln`](code/code.atsln) using Microchip Studio
 2. Build the project
 3. Simulate the system on proteus. Open the [`simulation/simulation.pdsprj`](simulation/simulation.pdsprj) file using Proteus, then Run the simulation
 
