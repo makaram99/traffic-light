@@ -193,14 +193,20 @@ static void EXTI_Notify(void) {
  * @return  void
  ********************************************************************************/
 static void APP_CarsGreenState(void) {
+    /* Configure the pedestrians' light */
+    LED_Set(LED_PEDESTRIAN_R);
+    LED_Clr(LED_PEDESTRIAN_G);
+    LED_Clr(LED_PEDESTRIAN_Y);
+    
+    /* Configure the cars' light */
     LED_Set(LED_CAR_G);
     LED_Clr(LED_CAR_Y);
     LED_Clr(LED_CAR_R);
 
-    LED_Set(LED_PEDESTRIAN_R);
-    LED_Clr(LED_PEDESTRIAN_G);
-    LED_Clr(LED_PEDESTRIAN_Y);
-
+    /* Waiting for the button to be pressed. 
+        If the button is pressed, it will go to the next state. 
+        If the button is not pressed, it will wait for the next second. 
+    */
     for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
         if(isButtonPressed) {
             isButtonPressed = FALSE;
@@ -223,14 +229,20 @@ static void APP_CarsGreenState(void) {
  * @return  void
  ********************************************************************************/
 static void APP_CarsYellowState(void) {
-    LED_Set(LED_CAR_Y);
-    LED_Set(LED_CAR_G);
-    LED_Clr(LED_CAR_R);
-
+    /* Configure the pedestrians' light */
     LED_Set(LED_PEDESTRIAN_R);
     LED_Clr(LED_PEDESTRIAN_G);
     LED_Clr(LED_PEDESTRIAN_Y);
 
+    /* Configure the cars' light */
+    LED_Set(LED_CAR_Y);
+    LED_Set(LED_CAR_G);
+    LED_Clr(LED_CAR_R);
+
+    /* Waiting for the button to be pressed, while blinking the yellow light.
+        If the button is pressed, it will go to the next state. 
+        If the button is not pressed, it will wait for the next second. 
+    */
     for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
         if(isButtonPressed) {
             isButtonPressed = FALSE;
@@ -256,14 +268,20 @@ static void APP_CarsYellowState(void) {
  * @return  void
  ********************************************************************************/
 static void APP_CarsRedState(void) {
+    /* Configure the pedestrians' light */
+    LED_Set(LED_PEDESTRIAN_R);
+    LED_Clr(LED_PEDESTRIAN_G);
+    LED_Clr(LED_PEDESTRIAN_Y);
+    
+    /* Configure the cars' light */
     LED_Set(LED_CAR_R);
     LED_Clr(LED_CAR_G);
     LED_Clr(LED_CAR_Y);
 
-    LED_Set(LED_PEDESTRIAN_R);
-    LED_Clr(LED_PEDESTRIAN_G);
-    LED_Clr(LED_PEDESTRIAN_Y);
-
+    /* Waiting for the button to be pressed. 
+        If the button is pressed, it will go to the next state. 
+        If the button is not pressed, it will wait for the next second. 
+    */
     for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
         if(isButtonPressed) {
             isButtonPressed = FALSE;
@@ -286,23 +304,29 @@ static void APP_CarsRedState(void) {
  * @return  void
  ********************************************************************************/
 static void APP_PedestrianInitState(void) {
+    /* Configure the pedestrians' light */
     LED_Clr(LED_PEDESTRIAN_G);
     LED_Clr(LED_PEDESTRIAN_R);
     LED_Set(LED_PEDESTRIAN_Y);
 
+    /* Configure the cars' light */
     LED_Clr(LED_CAR_R);
     LED_Set(LED_CAR_G);
-    LED_Set(LED_CAR_Y);
+    LED_Set(LED_CAR_Y);  
 
+    /* Waiting for the next second, while blinking the yellow lights of
+        both cars and pedestrians.
+    */
     for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
-        if(isButtonPressed) {
-            isButtonPressed = FALSE;
-            /* Do nothing: remain in the same state */
-        }
         TIMER_DelayMs(1000);
 
         LED_Toggle(LED_PEDESTRIAN_Y);
         LED_Toggle(LED_CAR_Y);
+    }
+
+
+    if(isButtonPressed) {
+        isButtonPressed = FALSE;
     }
 }
 
@@ -317,21 +341,20 @@ static void APP_PedestrianInitState(void) {
  * @return  void
  ********************************************************************************/
 static void APP_PedestrianGreenState(void) {
+    /* Configure the pedestrians' light */
     LED_Set(LED_PEDESTRIAN_G);
     LED_Clr(LED_PEDESTRIAN_R);
     LED_Clr(LED_PEDESTRIAN_Y);
 
+    /* Configure the cars' light */
     LED_Set(LED_CAR_R);
     LED_Clr(LED_CAR_G);
     LED_Clr(LED_CAR_Y);
 
-    for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
-        if(isButtonPressed) {
-            isButtonPressed = FALSE;
-            /* Do nothing: remain in the same state */
-        }
 
-        TIMER_DelayMs(1000);
+    TIMER_DelayMs(5000);
+    if(isButtonPressed) {
+        isButtonPressed = FALSE;
     }
 }
 
@@ -347,25 +370,29 @@ static void APP_PedestrianGreenState(void) {
  * @return  void
  ********************************************************************************/
 static void APP_PedestrianFinalState(void) {
+    /* Configure the pedestrians' light */
     LED_Set(LED_PEDESTRIAN_G);
     LED_Clr(LED_PEDESTRIAN_R);
     LED_Set(LED_PEDESTRIAN_Y);
 
+    /* Configure the cars' light */
     LED_Clr(LED_CAR_R);
     LED_Clr(LED_CAR_G);
     LED_Set(LED_CAR_Y);
 
-    for(u8_t i = 0; i < STATE_TIME_SEC; i++) {
-        if(isButtonPressed) {
-            isButtonPressed = FALSE;
-            /* Do nothing: remain in the same state */
-        }
-        
+    /* Waiting for the next second, while blinking the yellow lights of
+        both cars and pedestrians.
+    */
+    for(u8_t i = 0; i < STATE_TIME_SEC; i++) {        
         TIMER_DelayMs(1000);
 
         LED_Toggle(LED_PEDESTRIAN_Y);
         LED_Toggle(LED_CAR_Y);
     }
-}
 
+
+    if(isButtonPressed) {
+        isButtonPressed = FALSE;
+    }
+}
 
